@@ -15,10 +15,12 @@ public class JarScanner {
 	private static List<Path> tmpFiles = Collections.synchronizedList( new ArrayList<Path>() );
 	private boolean isInsideZip;
 	private IScanResults scanResults;
+	private int minSize;
 	
-	public JarScanner( boolean isInsideZip, IScanResults scanResults ) {
+	public JarScanner( boolean isInsideZip, IScanResults scanResults, int minSize ) {
 		this.isInsideZip = isInsideZip;
 		this.scanResults = scanResults;
+		this.minSize = minSize;
 	}
 
 
@@ -29,7 +31,7 @@ public class JarScanner {
 
 
 	public void scan( Path path ) throws IOException {
-		Files.walkFileTree( path, new ClassFileWalker( isInsideZip, scanResults ) );
+		Files.walkFileTree( path, new ClassFileWalker( isInsideZip, scanResults, minSize ) );
 	}
 	
 	public List<String> getValidZipExtensions() {

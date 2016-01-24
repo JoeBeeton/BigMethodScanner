@@ -10,10 +10,12 @@ public class CountingClassVisitor extends ClassVisitor {
 	
 	private String className="";
 	private IScanResults scanResults;
+	private int minSize;
 	
-	public CountingClassVisitor(IScanResults scanResults) {
+	public CountingClassVisitor(IScanResults scanResults, int minSize) {
 		super( Opcodes.ASM5 );
 		this.scanResults = scanResults;
+		this.minSize = minSize;
 	}
 	
 	
@@ -27,7 +29,7 @@ public class CountingClassVisitor extends ClassVisitor {
     public MethodVisitor visitMethod(int access, String name, String desc,
             String signature, String[] exceptions) {
         	MethodVisitor visitor = super.visitMethod(access, name, desc, signature, exceptions);
-        	MethodCodeSizeEvaluator eval = new MethodCodeSizeEvaluator( visitor, className, name, scanResults );
+        	MethodCodeSizeEvaluator eval = new MethodCodeSizeEvaluator( visitor, className, name, scanResults, minSize );
         	return eval;
     }
 

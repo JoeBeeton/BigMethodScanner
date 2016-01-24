@@ -12,17 +12,19 @@ public class RunnableJarScanner implements Runnable {
 	private boolean isInsideZip;
 	private IScanResults scanResults;
 	private FileSystem fs;
+	private int minSize;
 
-	public RunnableJarScanner( Path path, boolean isInsideZip, IScanResults scanResults, FileSystem fs ) {
+	public RunnableJarScanner( Path path, boolean isInsideZip, IScanResults scanResults, FileSystem fs, int minSize ) {
 		this.path = path;
 		this.isInsideZip = isInsideZip;
 		this.scanResults = scanResults;
 		this.fs = fs;
+		this.minSize = minSize;
 	}
 
 	@Override
 	public void run() {
-		JarScanner scanner = new JarScanner( isInsideZip, scanResults );
+		JarScanner scanner = new JarScanner( isInsideZip, scanResults, minSize );
 		try {
 			scanner.scan(path);
 		} catch (IOException e) {

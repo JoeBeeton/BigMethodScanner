@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
@@ -24,7 +23,7 @@ public class ProjectScannerTest {
 		Path path = getPathToResources();
 		ProjectScanner scanner = new ProjectScanner();
 		ScanResultsAsList list = new ScanResultsAsList();
-		scanner.scanPath( path, list );
+		scanner.scanPath( path, list, 8000 );
 		assertEquals( 2, list.getLargeMethodLists().size() );
 		assertTrue( list.getLargeMethodLists().contains(
 				"org.apache.commons.compress.compressors.snappy.PureJavaCrc32C.<clinit>() size :  16243") );

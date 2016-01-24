@@ -10,18 +10,20 @@ public class MethodCodeSizeEvaluator extends CodeSizeEvaluator {
 	private String className;
 	private String methodName;
 	private IScanResults scanResults;
+	private int minSize;
 
-	public MethodCodeSizeEvaluator( MethodVisitor methodVisitor, String className, String methodName, IScanResults scanResults ) {
+	public MethodCodeSizeEvaluator( MethodVisitor methodVisitor, String className, String methodName, IScanResults scanResults, int minSize ) {
 		super( methodVisitor );
 		this.className = className;
 		this.methodName = methodName;
 		this.scanResults = scanResults;
+		this.minSize = minSize;
 	}
 
 	@Override
     public void visitEnd() {
         super.visitEnd();
-        if ( getMinSize() > 8000 ) {
+        if ( getMinSize() > minSize ) {
         	String classWithDots = className.replaceAll("/", ".");
         	scanResults.submitLargeMethod(
         			classWithDots + "."  + methodName + "() size :  " + getMaxSize() );

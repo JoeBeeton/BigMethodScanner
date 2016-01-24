@@ -25,10 +25,12 @@ public class ClassFileWalker implements FileVisitor<Path> {
 
 	private boolean isInsideZip;
 	private IScanResults scanResults;
+	private int minSize;
 
-	public ClassFileWalker( boolean isInsideZip, IScanResults scanResults ) {
+	public ClassFileWalker( boolean isInsideZip, IScanResults scanResults, int minSize ) {
 		this.isInsideZip = isInsideZip;
 		this.scanResults = scanResults;
+		this.minSize = minSize;
 	}
 
 	@Override
@@ -63,7 +65,7 @@ public class ClassFileWalker implements FileVisitor<Path> {
 	}
 	
 	private ClassVisitor getClassVisitor() {
-		return new CountingClassVisitor( scanResults );
+		return new CountingClassVisitor( scanResults, minSize );
 	}
 
 	private boolean isClassFile( Path file ) {
@@ -96,7 +98,7 @@ public class ClassFileWalker implements FileVisitor<Path> {
 	        URI zipURI = URI.create( String.format( "jar:file:/%s", file.toString().replaceAll("\\\\", "/") ) );
 		try {
 			FileSystem fs = FileSystems.newFileSystem( zipURI, env );
-			RunnableJarScanner scanner = new RunnableJarScanner(  fs.getPath("/"), true, scanResults, fs );
+			RunnableJarScanner scanner = new RunnableJarScanner(  fs.getPath("/"), true, scanResults, fs, minSize );
 			ProjectScanner.service.submit( scanner );
 		} catch (IOException e) {
 			e.printStackTrace();

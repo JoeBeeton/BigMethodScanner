@@ -25,8 +25,8 @@ public class ProjectScanner {
 
 	
 	
-	public void scanPath( Path path, IScanResults scanResults ) throws InterruptedException, ExecutionException {
-		submitTask( new RunnableJarScanner( path, false, scanResults,null ) );
+	public void scanPath( Path path, IScanResults scanResults, int minSize ) throws InterruptedException, ExecutionException {
+		submitTask( new RunnableJarScanner( path, false, scanResults,null, minSize ) );
 		for ( Future<?> future : futureTasks ) {
 			try {
 				future.get();
