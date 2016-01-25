@@ -30,13 +30,7 @@ public class RunnableJarScanner implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if ( fs != null ) {
-			try {
-				fs.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		
 	}
 
 }

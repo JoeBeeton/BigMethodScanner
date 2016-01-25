@@ -24,7 +24,7 @@ public class ProjectScannerTest {
 		ProjectScanner scanner = new ProjectScanner();
 		ScanResultsAsList list = new ScanResultsAsList();
 		scanner.scanPath( path, list, 8000 );
-		assertEquals( 2, list.getLargeMethodLists().size() );
+		assertEquals( 3, list.getLargeMethodLists().size() );
 		assertTrue( list.getLargeMethodLists().contains(
 				"org.apache.commons.compress.compressors.snappy.PureJavaCrc32C.<clinit>() size :  16243") );
 		assertTrue( list.getLargeMethodLists().contains(

@@ -99,7 +99,7 @@ public class ClassFileWalker implements FileVisitor<Path> {
 		try {
 			FileSystem fs = FileSystems.newFileSystem( zipURI, env );
 			RunnableJarScanner scanner = new RunnableJarScanner(  fs.getPath("/"), true, scanResults, fs, minSize );
-			ProjectScanner.service.submit( scanner );
+			ProjectScanner.submitTask( scanner );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

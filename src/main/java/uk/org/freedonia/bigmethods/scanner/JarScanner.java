@@ -35,7 +35,7 @@ public class JarScanner {
 	}
 	
 	public List<String> getValidZipExtensions() {
-		return Arrays.asList( "zip","jar","ear" );
+		return Arrays.asList( "zip","jar","ear", "war" );
 	}
 	
 	
